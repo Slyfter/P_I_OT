@@ -24,13 +24,11 @@ To get started with P(i)ot:
    ```bash
    pip install -r requirements.txt
 
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
 ## Contact
 
-Email: chensve1@students.zhaw.ch
+Email: 
+chensve1@students.zhaw.ch
+meerjon@students.zhaw.ch
 
 Project Link: [https://github.com/Slyfter/P_I_OT](https://github.com/Slyfter/P_I_OT)
 
