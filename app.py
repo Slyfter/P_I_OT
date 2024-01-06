@@ -43,7 +43,7 @@ def index():
         data = json.load(json_file)
     
     # Extract data for plotting
-    time = [datetime.strptime(entry['datetime'], '%Y-%m-%d %H:%M:%S') for entry in data]
+    time = [datetime.strptime(entry['datetime'] + ' ' + entry['time'], '%m/%d/%Y %H:%M') for entry in data]
     graph_temperature = [entry['temperature'] for entry in data]
     graph_humidity = [entry['humidity'] for entry in data]
 
@@ -104,18 +104,12 @@ def results():
     return render_template('results.html', humidity=humidity_percentage, temperature=round(calibrated_temp_from_pressure, 1), disease_name=get_prediction())
 
 def capture_image():
-    # Turn on SenseHat lights
-    sense.clear()
-
     camera = cv2.VideoCapture(0)
     time.sleep(2)  # Camera warm-up time
     ret, frame = camera.read()
     if ret:
         cv2.imwrite(image_path, frame)
     camera.release()
-
-    # Turn off SenseHat lights
-    sense.clear()
 
 
 def prediction(image_path):
