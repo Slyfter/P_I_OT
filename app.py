@@ -40,8 +40,9 @@ def get_calibrated_temp(sense_temp, cpu_temp):
 def index():
     # Load the mock data from the JSON file
     with open('data/mock_data.json', 'r') as file:
-        data_str = "[" + file.read().replace("}\n{", "},\n{") + "]"
-        data = json.load(data_str)
+        file_content = file.read()
+        json_str = "[" + file_content.replace("}\n{", "},\n{") + "]"
+        data = json.load(json_str)
     
     # Extract data for plotting
     time = [datetime.strptime(entry['datetime'] + ' ' + entry['time'], '%m/%d/%Y %H:%M') for entry in data]
