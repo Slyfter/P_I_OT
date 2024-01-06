@@ -8,20 +8,13 @@ import torch
 import pandas as pd
 
 # Load the model and data
-disease_info = pd.read_csv('Disease detection/data/disease_info.csv', encoding='cp1252')
+disease_info = pd.read_csv('./data/disease_info.csv', encoding='cp1252')
 model = CNN.CNN(39)
-model.load_state_dict(torch.load("Disease detection/model/plant_disease_model_1_latest.pt", map_location=torch.device('cpu')))
+model.load_state_dict(torch.load('./model/plant_disease_model_1_latest.pt', map_location=torch.device('cpu')))
 model.eval()
+image_path = './Disease detection/images/basil_healthy.jpg'
 
-def capture_image():
-    camera = cv2.VideoCapture(0)  # Assuming the USB camera is the first camera
-    ret, frame = camera.read()
-    if ret:
-        image_path = 'Disease detection/leaf_image.jpg'
-        cv2.imwrite(image_path, frame)
-    camera.release()
-    return image_path if ret else None
-
+    
 def prediction(image_path):
     image = Image.open(image_path)
     image = image.resize((224, 224))
@@ -33,7 +26,6 @@ def prediction(image_path):
     return index
 
 def get_prediction():
-    image_path = capture_image()
     if image_path:
         pred = prediction(image_path)
         title = disease_info['disease_name'][pred]
