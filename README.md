@@ -28,7 +28,7 @@ pip install -r requirements.txt
 
 3. Connect your Raspberry Pi to the Sense HAT and the camera.
 
-4. Run the Flask application:
+4. Run the Flask application:<br />
 Open the terminal on your raspberry pi and change the directory to the directory where your app.py is located and run the following command
 ```bash
 FLASK_APP=app.py flask run
