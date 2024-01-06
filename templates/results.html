@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - Plant Monitoring Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            background-image: url('/static/background.png');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed; /* To keep the background image fixed during scroll */
+        }
+        .dashboard {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 600px;
+            background: white;
+            opacity: 0.95; /* Adjust opacity as needed */
+        }
+        .dashboard * {
+            opacity: 1; /* Make sure child elements are not transparent */
+        }
+
+        .dashboard h1 {
+            color: #4b7043;
+        }
+        .dashboard p {
+            color: #333;
+            font-size: 1.1rem;
+        }
+        .image-container {
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+        .results-info {
+            background-color: #e7ebe5;
+            border-left: 5px solid #4b7043;
+            padding: 1rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h1>Health Assessment</h1>
+        <div class="image-container">
+            <img src="/static/leaf_image.jpg" alt="Captured Image">
+        </div>
+        <div class="results-info">
+            <p>Temperature: {{ info['temperature'] }}</p>
+            <p>Humidity: {{ info['humidity'] }}</p>
+            <!-- You can add more results related to the image analysis here -->
+        </div>
+        <!-- Link to go back to the main dashboard -->
+        <a href="/" class="button">Back to Dashboard</a>
+    </div>
+</body>
+</html>

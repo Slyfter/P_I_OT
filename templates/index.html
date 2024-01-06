@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P(I)oT Dashboard for Plant Monitoring</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('/static/background.png');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+        }
+        .dashboard {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: white;
+            width: 80%;
+            max-width: 600px;
+            background: white;
+            opacity: 0.95; /* Adjust opacity as needed */
+        }
+        .dashboard * {
+            opacity: 1; /* Make sure child elements are not transparent */
+        }
+        .dashboard h1 {
+            color: #4b7043;
+        }
+        .dashboard p {
+            color: #333;
+            font-size: 1.1rem;
+        }
+        .button {
+            background-color: #4b7043;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
+            margin: 20px auto;
+            cursor: pointer;
+            border: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #3e5f36;
+        }
+        .info {
+            background-color: #e7ebe5;
+            border-left: 5px solid #4b7043;
+            padding: 1rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h1>P(I)oT Dashboard</h1>
+        <p class="description">Welcome to the Plant Monitoring Dashboard. Keep track of your plant's health and environmental conditions in real-time.</p>
+        <div class="info">
+            <p>Temperature: {{ info['temperature'] }}</p>
+            <p>Humidity: {{ info['humidity'] }}</p>
+        </div>
+        <form action="/take-picture" method="post">
+            <button type="submit" class="button">Take Picture</button>
+        </form>
+    </div>
+</body>
+</html>
