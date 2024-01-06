@@ -39,4 +39,4 @@ def test_model(image_folder, image_name):
 
 if __name__ == '__main__':
     # Test with a specific image from the 'images' folder
-    test_model('images', 'basil_healthy.jpg')  # Ensure 'basil_healthy.jpg' is the correct image file name
+    test_model('images', 'basil_unhealthy_1.jpg')  # Ensure 'basil_healthy.jpg' is the correct image file name
