@@ -71,12 +71,18 @@ def results():
     return render_template('results.html', humidity=humidity_percentage, temperature=round(calibrated_temp_from_pressure, 1), disease_name=get_prediction())
 
 def capture_image():
+    # Turn on SenseHat lights
+    sense.clear()
+
     camera = cv2.VideoCapture(0)
     time.sleep(2)  # Camera warm-up time
     ret, frame = camera.read()
     if ret:
         cv2.imwrite(image_path, frame)
     camera.release()
+
+    # Turn off SenseHat lights
+    sense.clear()
 
 
 def prediction(image_path):
