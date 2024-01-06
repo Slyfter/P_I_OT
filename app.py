@@ -27,7 +27,7 @@ def index():
     temp_from_pressure = sense.get_temperature_from_pressure()
     cpu_temp = get_cpu_temp()
     calibrated_temp_from_pressure = get_calibrated_temp(temp_from_pressure, cpu_temp)
-    return render_template('index.html', humidity=humidity_percentage, temperature=calibrated_temp_from_pressure)
+    return render_template('index.html', humidity=humidity_percentage, temperature=round(calibrated_temp_from_pressure, 1))
 
 @app.route('/take-picture', methods=['POST'])
 def take_picture():
@@ -44,7 +44,7 @@ def results():
     temp_from_pressure = sense.get_temperature_from_pressure()
     cpu_temp = get_cpu_temp()
     calibrated_temp_from_pressure = get_calibrated_temp(temp_from_pressure, cpu_temp)
-    return render_template('results.html', humidity=humidity_percentage, temperature=calibrated_temp_from_pressure)
+    return render_template('results.html', humidity=humidity_percentage, temperature=round(calibrated_temp_from_pressure, 1))
 
 def capture_image():
     camera = cv2.VideoCapture(0)
