@@ -39,7 +39,7 @@ def get_calibrated_temp(sense_temp, cpu_temp):
 @app.route('/')
 def index():
     # Load the mock data from the JSON file
-    with open('data/mock_data.json', 'r') as file:
+    with open('data/test.json', 'r') as file:
         file_content = file.read()
         json_str = "[" + file_content.replace("}\n{", "},\n{") + "]"
         data = json.load(json_str)
