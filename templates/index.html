@@ -63,15 +63,49 @@
             margin: 2rem 0;
             border-radius: 8px;
         }
+
+        /* Additional styles for graph placeholders */
+        .graph-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        .graph {
+            flex: 1;
+            background-color: #e7ebe5;
+            border-left: 5px solid #4b7043;
+            padding: 1rem;
+            margin: 0.5rem;
+            border-radius: 8px;
+        }
+        .graph-title {
+            font-weight: bold;
+            color: #4b7043;
+        }
+        .graph-placeholder {
+            background-color: #ccc;
+            height: 300px;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
     <div class="dashboard">
         <h1>P(I)oT Dashboard</h1>
         <p class="description">Welcome to the Plant Monitoring Dashboard. Keep track of your plant's health and environmental conditions in real-time.</p>
-        <div class="info">
-            <p>Temperature: {{ temperature }} °C</p>
-            <p>Humidity: {{ humidity }}</p>
+    
+        <!-- Graph placeholders for humidity and temperature -->
+        <div class="graph-container">
+            <div class="graph">
+                <p class="graph-title">Humidity Graph</p>
+                <div class="graph-placeholder"></div>
+                <p>Humidity: {{ humidity }}</p>
+            </div>
+            <div class="graph">
+                <p class="graph-title">Temperature Graph</p>
+                <div class="graph-placeholder"></div>
+                <p>Temperature: {{ temperature }} °C</p>
+            </div>
         </div>
         <form action="/take-picture" method="post">
             <button type="submit" class="button">Take Picture</button>
