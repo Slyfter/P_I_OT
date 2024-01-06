@@ -39,8 +39,9 @@ def get_calibrated_temp(sense_temp, cpu_temp):
 @app.route('/')
 def index():
     # Load the mock data from the JSON file
-    with open('data/mock_data.json', 'r') as json_file:
-        data = json.load(json_file)
+    with open('data/mock_data.json', 'r') as file:
+        data_str = "[" + file.read().replace("}\n{", "},\n{") + "]"
+        data = json.load(data_str)
     
     # Extract data for plotting
     time = [datetime.strptime(entry['datetime'] + ' ' + entry['time'], '%m/%d/%Y %H:%M') for entry in data]
