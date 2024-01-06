@@ -70,8 +70,8 @@
         <h1>P(I)oT Dashboard</h1>
         <p class="description">Welcome to the Plant Monitoring Dashboard. Keep track of your plant's health and environmental conditions in real-time.</p>
         <div class="info">
-            <p>Temperature: {{ info['temperature'] }}</p>
-            <p>Humidity: {{ info['humidity'] }}</p>
+            <p>Temperature: {{ temperature }}</p>
+            <p>Humidity: {{ humidity }}</p>
         </div>
         <form action="/take-picture" method="post">
             <button type="submit" class="button">Take Picture</button>

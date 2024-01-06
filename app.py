@@ -1,18 +1,33 @@
 from flask import Flask, render_template, request, redirect, url_for
+from sense_hat import SenseHat
 import cv2
 import time
 
 app = Flask(__name__)
+sense = SenseHat()
 
-# Dummy data for environmental info
-environmental_info = {
-    'temperature': '25 °C',
-    'humidity': '40%'
-}
+def get_cpu_temp():
+    """Extracts the CPU temperature."""
+    with open("/sys/class/thermal/thermal_zone0/temp") as f:
+        cpu_temp = float(f.read()) / 1000
+    return cpu_temp
+
+def get_calibrated_temp(sense_temp, cpu_temp):
+    """Calibrates the temperature from the Sense HAT sensor by subtracting the CPU temperature influence."""
+    # The factor '0.5' and offset '5' are hypothetical values; you should determine appropriate values through calibration.
+    return sense_temp - ((cpu_temp - sense_temp) / 1.5)
 
 @app.route('/')
 def index():
-    return render_template('index.html', info=environmental_info)
+    # Get humidty
+    humidity = sense.get_humidity()
+    humidity_percentage = "{:.2f}%".format(humidity)
+
+    # Get temperatures
+    temp_from_pressure = sense.get_temperature_from_pressure()
+    cpu_temp = get_cpu_temp()
+    calibrated_temp_from_pressure = get_calibrated_temp(temp_from_pressure, cpu_temp)
+    return render_template('index.html', humidity=humidity_percentage, temperature=calibrated_temp_from_pressure)
 
 @app.route('/take-picture', methods=['POST'])
 def take_picture():
@@ -21,7 +36,15 @@ def take_picture():
 
 @app.route('/results')
 def results():
-    return render_template('results.html', info=environmental_info)
+    # Get humidty
+    humidity = sense.get_humidity()
+    humidity_percentage = "{:.2f}%".format(humidity)
+
+    # Get temperatures
+    temp_from_pressure = sense.get_temperature_from_pressure()
+    cpu_temp = get_cpu_temp()
+    calibrated_temp_from_pressure = get_calibrated_temp(temp_from_pressure, cpu_temp)
+    return render_template('results.html', humidity=humidity_percentage, temperature=calibrated_temp_from_pressure)
 
 def capture_image():
     camera = cv2.VideoCapture(0)
