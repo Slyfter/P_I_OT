@@ -45,9 +45,9 @@ def index():
         data = json.load(json_str)
     
     # Extract data for plotting
-    time = [datetime.strptime(entry['datetime'] + ' ' + entry['time'], '%m/%d/%Y %H:%M') for entry in data]
-    graph_temperature = [entry['temperature'] for entry in data]
+    time = [datetime.strptime(entry['time'] + ' ' + entry['datetime'], '%H:%M %m/%d/%Y') for entry in data]
     graph_humidity = [entry['humidity'] for entry in data]
+    graph_temperature = [entry['temperature'] for entry in data]
 
     # Create temperature and humidity graphs
     plt.figure(figsize=(10, 5))
