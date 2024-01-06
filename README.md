@@ -15,13 +15,23 @@ This repository contains the code and resources for a Plant IoT Dashboard for mo
 
 Follow these steps to set up the Plant IoT Dashboard on your Raspberry Pi:
 
-1. Clone this repository to your Raspberry Pi:
-
+1. Install git lfs and clone this repository to your Raspberry Pi:
 ```bash
-git clone https://github.com/your-username/plant-iot-dashboard.git
+sudo apt-get install git-lfs
 ```
 
-2. Install the required packages:
+```bash
+git lfs clone https://github.com/Slyfter/P_I_OT.git
+```
+
+2. Create virtual env and install the required packages:
+```bash
+sudo apt-get update
+sudo apt-get install python3-venv python3-pip
+python3 -m venv myenv
+source myenv/bin/activate
+```
+
 ```bash
 pip install -r requirements.txt
 ```
