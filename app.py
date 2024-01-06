@@ -57,6 +57,8 @@ def index():
     plt.title('Temperature Over Time')
     plt.grid(True)
     plt.legend()
+    plt.savefig('static/temperature_graph.png')
+    plt.clf()
 
     plt.figure(figsize=(10, 5))
     plt.plot(time, graph_humidity, label='Humidity (%)', color='orange')
@@ -64,10 +66,7 @@ def index():
     plt.ylabel('Humidity (%)')
     plt.title('Humidity Over Time')
     plt.grid(True)
-    plt.legend()
-
-    # Save the graphs as images
-    plt.savefig('static/temperature_graph.png')
+    plt.legend()  
     plt.savefig('static/humidity_graph.png')
 
     # Get humidty
