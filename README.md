@@ -1,32 +1,49 @@
-# P(i)ot - IoT Project
+# P(I)oT Dashboard
 
-## Overview
+## Introduction
 
-P(i)ot is an innovative IoT (Internet of Things) project aimed at bringing smart technology into everyday objects. Our mission is to integrate IoT solutions into practical scenarios, enhancing convenience and efficiency.
+This repository contains the code and resources for a Plant IoT Dashboard for monitoring the health and environmental conditions of your plants in real-time. The dashboard provides information about temperature, humidity, and allows you to capture images of your plants in order to assess it's health with a pre-trained machine learning model for image classification.
 
 ## Features
 
-- **Smart Integration:** Utilizes IoT technology to make everyday objects smarter.
-- **User-friendly Interface:** Easy-to-use interface for seamless interaction with IoT devices.
-- **Real-time Data Processing:** Offers real-time data analysis and feedback.
-- **Customizable Settings:** Allows users to tailor their experience according to their needs.
-- **Energy Efficient:** Designed to be eco-friendly and power-saving.
+- Real-time temperature monitoring
+- Real-time humidity monitoring
+- Capture images of your plants
+- Health assessment of your plants
 
-## Installation
+## Getting Started
 
-To get started with P(i)ot:
+Follow these steps to set up the Plant IoT Dashboard on your Raspberry Pi:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Slyfter/P_I_OT.git
+1. Clone this repository to your Raspberry Pi:
+
+```bash
+git clone https://github.com/your-username/plant-iot-dashboard.git
+```
 
 2. Install the required packages:
-   ```bash
-   pip install -r requirements.txt
+```bash
+pip install -r requirements.txt
+```
 
-## Contact
+3. Connect your Raspberry Pi to the Sense HAT and the camera.
 
-Email: chensve1@students.zhaw.ch, meerjon@students.zhaw.ch, ganesrak@students.zhaw.ch
+4. Run the Flask application:<br />
+Open the terminal on your raspberry pi and change the directory to the directory where your app.py is located and run the following command
+```bash
+FLASK_APP=app.py flask run
+```
 
-Project Link: [https://github.com/Slyfter/P_I_OT](https://github.com/Slyfter/P_I_OT)
+5. Access the dashboard by opening a web browser and navigating to `http://your-pi-ip-address:5000`.
+
+## Usage
+
+- The dashboard displays real-time temperature and humidity data.
+- Click the "Assess Health" button to capture an image of your plant to detect any leaf diseases of your plant. 
+
+
+
+
+
+
 
