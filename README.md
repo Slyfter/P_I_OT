@@ -26,7 +26,7 @@ To get started with P(i)ot:
 
 ## Contact
 
-Email: chensve1@students.zhaw.ch, meerjon@students.zhaw.ch
+Email: chensve1@students.zhaw.ch, meerjon@students.zhaw.ch, ganesrak@students.zhaw.ch
 
 Project Link: [https://github.com/Slyfter/P_I_OT](https://github.com/Slyfter/P_I_OT)
 
