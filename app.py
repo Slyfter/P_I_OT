@@ -42,7 +42,7 @@ def index():
     with open('data/test.json', 'r') as file:
         file_content = file.read()
         json_str = "[" + file_content.replace("}\n{", "},\n{") + "]"
-        data = json.load(json_str)
+        data = json.loads(json_str)
     
     # Extract data for plotting
     time = [datetime.strptime(entry['time'] + ' ' + entry['datetime'], '%H:%M %m/%d/%Y') for entry in data]
