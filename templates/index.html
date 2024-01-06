@@ -98,12 +98,14 @@
         <div class="graph-container">
             <div class="graph">
                 <p class="graph-title">Humidity Graph</p>
-                <div class="graph-placeholder"></div>
+                <!-- Humidity Graph Image -->
+                <img src="{{ url_for('static', filename='humidity_graph.png') }}" alt="Humidity Graph" class="graph-placeholder">
                 <p>Humidity: {{ humidity }}</p>
             </div>
             <div class="graph">
                 <p class="graph-title">Temperature Graph</p>
-                <div class="graph-placeholder"></div>
+                <!-- Temperature Graph Image -->
+                <img src="{{ url_for('static', filename='temperature_graph.png') }}" alt="Temperature Graph" class="graph-placeholder">
                 <p>Temperature: {{ temperature }} °C</p>
             </div>
         </div>

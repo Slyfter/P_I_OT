@@ -8,6 +8,9 @@ import CNN
 import numpy as np
 import torch
 import pandas as pd
+import json
+import matplotlib.pyplot as plt
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -35,6 +38,36 @@ def get_calibrated_temp(sense_temp, cpu_temp):
 
 @app.route('/')
 def index():
+    # Load the mock data from the JSON file
+    with open('mock_data.json', 'r') as json_file:
+        data = json.load(json_file)
+    
+    # Extract data for plotting
+    time = [datetime.strptime(entry['datetime'], '%Y-%m-%d %H:%M:%S') for entry in data]
+    graph_temperature = [entry['temperature'] for entry in data]
+    graph_humidity = [entry['humidity'] for entry in data]
+
+    # Create temperature and humidity graphs
+    plt.figure(figsize=(10, 5))
+    plt.plot(time, graph_temperature, label='Temperature (°C)')
+    plt.xlabel('Time')
+    plt.ylabel('Temperature (°C)')
+    plt.title('Temperature Over Time')
+    plt.grid(True)
+    plt.legend()
+
+    plt.figure(figsize=(10, 5))
+    plt.plot(time, graph_humidity, label='Humidity (%)', color='orange')
+    plt.xlabel('Time')
+    plt.ylabel('Humidity (%)')
+    plt.title('Humidity Over Time')
+    plt.grid(True)
+    plt.legend()
+
+    # Save the graphs as images
+    plt.savefig('static/temperature_graph.png')
+    plt.savefig('static/humidity_graph.png')
+
     # Get humidty
     humidity = sense.get_humidity()
     humidity_percentage = "{:.2f}%".format(humidity)
@@ -45,7 +78,7 @@ def index():
     cpu_temp = get_cpu_temp()
     calibrated_temp_from_pressure = get_calibrated_temp(temp_from_pressure, cpu_temp)
     calibrated_temp_from_pressure = 18
-    return render_template('index.html', humidity=humidity_percentage, temperature=round(calibrated_temp_from_pressure, 1))
+    return render_template('index.html', humidity=humidity_percentage, temperature=round(calibrated_temp_from_pressure, 1), temperature_graph='temperature_graph.png', humidity_graph='humidity_graph.png')
 
 @app.route('/take-picture', methods=['POST'])
 def take_picture():
