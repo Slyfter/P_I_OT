@@ -22,7 +22,6 @@ model.eval()
 
 # Predefine Image path
 image_path = 'static/leaf_image.jpg'
-
 sense = SenseHat()
 
 def get_cpu_temp():
@@ -71,13 +70,13 @@ def index():
     # Get humidty
     humidity = sense.get_humidity()
     humidity_percentage = "{:.2f}%".format(humidity)
-    humidity_percentage = 20
+    #humidity_percentage = 20
 
     # Get temperatures
     temp_from_pressure = sense.get_temperature_from_pressure()
     cpu_temp = get_cpu_temp()
     calibrated_temp_from_pressure = get_calibrated_temp(temp_from_pressure, cpu_temp)
-    calibrated_temp_from_pressure = 18
+    #calibrated_temp_from_pressure = 18
     return render_template('index.html', humidity=humidity_percentage, temperature=round(calibrated_temp_from_pressure, 1), temperature_graph='temperature_graph.png', humidity_graph='humidity_graph.png')
 
 @app.route('/take-picture', methods=['POST'])
@@ -85,23 +84,41 @@ def take_picture():
     capture_image()
     return redirect(url_for('results'))
 
-@app.route('/results')
-def results():
+@app.route('/assess-health', methods=['POST'])
+def assess_health():
     # Get humidty
     humidity = sense.get_humidity()
     humidity_percentage = "{:.2f}%".format(humidity)
-    humidity_percentage = 20
+    #humidity_percentage = 20
 
     # Get temperatures
     temp_from_pressure = sense.get_temperature_from_pressure()
     cpu_temp = get_cpu_temp()
     calibrated_temp_from_pressure = get_calibrated_temp(temp_from_pressure, cpu_temp)
-    calibrated_temp_from_pressure = 18
+    #calibrated_temp_from_pressure = 18
+    prediction(image_path)
+    get_prediction()
+    
+
+    return render_template('detailedresults.html', humidity=humidity_percentage, temperature=round(calibrated_temp_from_pressure, 1), disease_name=get_prediction())
+
+@app.route('/results')
+def results():
+    # Get humidty
+    humidity = sense.get_humidity()
+    humidity_percentage = "{:.2f}%".format(humidity)
+    #humidity_percentage = 20
+
+    # Get temperatures
+    temp_from_pressure = sense.get_temperature_from_pressure()
+    cpu_temp = get_cpu_temp()
+    calibrated_temp_from_pressure = get_calibrated_temp(temp_from_pressure, cpu_temp)
+    #calibrated_temp_from_pressure = 18
 
     prediction(image_path)
     get_prediction()
 
-    return render_template('results.html', humidity=humidity_percentage, temperature=round(calibrated_temp_from_pressure, 1), disease_name=get_prediction())
+    return render_template('results.html', humidity=humidity_percentage, temperature=round(calibrated_temp_from_pressure, 1))
 
 def capture_image():
     camera = cv2.VideoCapture(0)

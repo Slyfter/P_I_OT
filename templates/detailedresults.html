@@ -56,23 +56,6 @@
             margin: 2rem 0;
             border-radius: 8px;
         }
-        .button {
-            background-color: #4b7043;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 1rem;
-            margin: 20px auto;
-            cursor: pointer;
-            border: none;
-            border-radius: 25px;
-            transition: background-color 0.3s ease;
-        }
-        .button:hover {
-            background-color: #3e5f36;
-        }
     </style>
 </head>
 <body>
@@ -83,11 +66,7 @@
         </div>
         <div class="results-info">
             <h2>Health Assessment</h2>
-            <!-- Form to submit the image for health assessment -->
-            <form action="/assess-health" method="post">
-                <input type="hidden" name="image_path" value="/static/leaf_image.jpg">
-                <button type="submit" class="button">Assess Health</button>
-            </form>
+            <p> {{ disease_name }} </p>
         </div>
         <div class="results-info">
             <h2>Current temperature and humidty</h2>
