@@ -38,13 +38,15 @@ def get_calibrated_temp(sense_temp, cpu_temp):
 @app.route('/')
 def index():
     # Load the mock data from the JSON file
-    with open('data/mock_data.json', 'r') as json_file:
-        data = json.load(json_file)
+    with open('data/test.json', 'r') as file:
+        file_content = file.read()
+        json_str = "[" + file_content.replace("}\n{", "},\n{") + "]"
+        data = json.loads(json_str)
     
     # Extract data for plotting
-    time = [datetime.strptime(entry['datetime'] + ' ' + entry['time'], '%m/%d/%Y %H:%M') for entry in data]
-    graph_temperature = [entry['temperature'] for entry in data]
+    time = [datetime.strptime(entry['time'] + ' ' + entry['datetime'], '%H:%M %m/%d/%Y') for entry in data]
     graph_humidity = [entry['humidity'] for entry in data]
+    graph_temperature = [entry['temperature'] for entry in data]
 
     # Create temperature and humidity graphs
     plt.figure(figsize=(10, 5))
@@ -54,6 +56,8 @@ def index():
     plt.title('Temperature Over Time')
     plt.grid(True)
     plt.legend()
+    plt.savefig('static/temperature_graph.png')
+    plt.clf()
 
     plt.figure(figsize=(10, 5))
     plt.plot(time, graph_humidity, label='Humidity (%)', color='orange')
@@ -61,10 +65,7 @@ def index():
     plt.ylabel('Humidity (%)')
     plt.title('Humidity Over Time')
     plt.grid(True)
-    plt.legend()
-
-    # Save the graphs as images
-    plt.savefig('static/temperature_graph.png')
+    plt.legend()  
     plt.savefig('static/humidity_graph.png')
 
     # Get humidty
