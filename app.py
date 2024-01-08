@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+import requests 
 from sense_hat import SenseHat
 import cv2
 import time
@@ -50,9 +51,9 @@ def index():
 
     # Create temperature and humidity graphs
     plt.figure(figsize=(10, 5))
-    plt.plot(time, graph_temperature, label='Temperature (°C)')
+    plt.plot(time, graph_temperature, label='Temperature (Â°C)')
     plt.xlabel('Time')
-    plt.ylabel('Temperature (°C)')
+    plt.ylabel('Temperature (Â°C)')
     plt.title('Temperature Over Time')
     plt.grid(True)
     plt.legend()
@@ -91,17 +92,18 @@ def assess_health():
     humidity = sense.get_humidity()
     humidity_percentage = "{:.2f}%".format(humidity)
     #humidity_percentage = 20
-
+ 
     # Get temperatures
     temp_from_pressure = sense.get_temperature_from_pressure()
     cpu_temp = get_cpu_temp()
     calibrated_temp_from_pressure = get_calibrated_temp(temp_from_pressure, cpu_temp)
     #calibrated_temp_from_pressure = 18
-    prediction(image_path)
-    get_prediction()
-    
-
-    return render_template('detailedresults.html', humidity=humidity_percentage, temperature=round(calibrated_temp_from_pressure, 1), disease_name=get_prediction())
+   
+    files = {'file': open(image_path, 'rb')}
+    response = requests.post("http://172.20.10.2:5000/predict", files=files)
+    prediction_result = response.json()
+ 
+    return render_template('detailedresults.html', humidity=humidity_percentage, temperature=round(calibrated_temp_from_pressure, 1), disease_name=prediction_result['disease_name'])
 
 @app.route('/results')
 def results():
