@@ -116,8 +116,8 @@ def results():
     calibrated_temp_from_pressure = get_calibrated_temp(temp_from_pressure, cpu_temp)
     #calibrated_temp_from_pressure = 18
 
-    prediction(image_path)
-    get_prediction()
+    #prediction(image_path)
+    #get_prediction()
 
     return render_template('results.html', humidity=humidity_percentage, temperature=round(calibrated_temp_from_pressure, 1))
 
