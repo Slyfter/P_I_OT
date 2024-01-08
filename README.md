@@ -44,13 +44,13 @@ Open the terminal on your raspberry pi and change the directory to the directory
 python mqtt_publisher.py
 ```
 
-4. Run the Flask application:<br />
+5. Run the Flask application:<br />
 Open the terminal on your raspberry pi and change the directory to the directory where your app.py is located and run the following command
 ```bash
 FLASK_APP=app.py flask run
 ```
 
-5. Access the dashboard by opening a web browser and navigating to `http://your-pi-ip-address:5000`.
+6. Access the dashboard by opening a web browser and navigating to `http://your-pi-ip-address:5000`.
 
 ## Usage
 
