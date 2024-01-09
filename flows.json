@@ -1,0 +1,98 @@
+[
+    {
+        "id": "1812e87399238b2e",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "850bc33dfce03061",
+        "type": "mqtt in",
+        "z": "1812e87399238b2e",
+        "name": "",
+        "topic": "sensor/#",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "3e7f7542507cf9a7",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 460,
+        "y": 560,
+        "wires": [
+            [
+                "c012c9252b08af1c"
+            ]
+        ]
+    },
+    {
+        "id": "c4d5bbad512a8156",
+        "type": "debug",
+        "z": "1812e87399238b2e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1930,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "c012c9252b08af1c",
+        "type": "file",
+        "z": "1812e87399238b2e",
+        "name": "",
+        "filename": "/home/pi/P(I)oT/P_I_OT/data/test.json",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1090,
+        "y": 560,
+        "wires": [
+            [
+                "c4d5bbad512a8156"
+            ]
+        ]
+    },
+    {
+        "id": "3e7f7542507cf9a7",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
