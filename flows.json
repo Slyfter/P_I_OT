@@ -20,11 +20,13 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 460,
-        "y": 560,
+        "x": 440,
+        "y": 520,
         "wires": [
             [
-                "c012c9252b08af1c"
+                "c012c9252b08af1c",
+                "8d3a21a4a6ded8e5",
+                "b96fb24fd11f67c9"
             ]
         ]
     },
@@ -41,7 +43,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1930,
+        "x": 1570,
         "y": 560,
         "wires": []
     },
@@ -63,6 +65,252 @@
                 "c4d5bbad512a8156"
             ]
         ]
+    },
+    {
+        "id": "8d3a21a4a6ded8e5",
+        "type": "function",
+        "z": "1812e87399238b2e",
+        "name": "Trigger alarm temperature",
+        "func": "var payload = msg.payload\nvar alarm_flag_temp = context.get(\"alarm_flag_temp\");\n\nif(typeof alarm_flag_temp == \"undefined\")\nalarm_flag_temp = false;\n\nif(payload.temperature > 30 && !alarm_flag_temp)\n{\n\talarm_flag_temp = true;\n\tmsg.alarm = 1;\n\tcontext.set(\"alarm_flag_temp\", alarm_flag_temp);\n\tmsg.payload = \"Your plant is burning. Please set the ambient temperature to a cooler setting.\";\n\treturn msg;\n}\nif(payload.temperature < 10 && !alarm_flag_temp)\n{\n\talarm_flag_temp = true;\n\tmsg.alarm = 1;\n\tcontext.set(\"alarm_flag_temp\", alarm_flag_temp);\n\tmsg.payload = \"Your plant is freezing. Please set the ambient temperature to a warmer setting.\";\n\treturn msg;\n}\nif(payload.temperature <= 30 || payload.temperature >= 10 && alarm_flag_temp)\n{\n\talarm_flag_temp = false;\n\tmsg.alarm = 0;\n\tcontext.set(\"alarm_flag_temp\", alarm_flag_temp);\n\tmsg.payload = \"Your plant has the optimum ambient temperature. It thanks you.\";\n\treturn msg;\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 260,
+        "wires": [
+            [
+                "06fee6f9ee1a39a0",
+                "5fc5d3091bd37548"
+            ]
+        ]
+    },
+    {
+        "id": "06fee6f9ee1a39a0",
+        "type": "debug",
+        "z": "1812e87399238b2e",
+        "name": "debug alarm temperature",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1390,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "a115cff57b86312e",
+        "type": "inject",
+        "z": "1812e87399238b2e",
+        "name": "high Temp",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"time\":\"19:58\",\"datetime\":\"01/11/2024\",\"humidity\":55,\"temperature\":37.3}",
+        "payloadType": "json",
+        "x": 520,
+        "y": 120,
+        "wires": [
+            [
+                "8d3a21a4a6ded8e5"
+            ]
+        ]
+    },
+    {
+        "id": "5fc5d3091bd37548",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "1812e87399238b2e",
+        "name": "Whatsapp Messenger",
+        "credtype": "account",
+        "account": "565c87deab136220",
+        "text": "payload",
+        "phonenumbervalue": "",
+        "apikeyvalue": "",
+        "apikeyinputtypemessage": "msg",
+        "phonenumberinputtypemessage": "msg",
+        "inputtypemessage": "msg",
+        "rejectssl": false,
+        "x": 1340,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1327399c2362dd53",
+        "type": "inject",
+        "z": "1812e87399238b2e",
+        "name": "good temp",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"time\":\"19:58\",\"datetime\":\"01/11/2024\",\"humidity\":65,\"temperature\":27.3}",
+        "payloadType": "json",
+        "x": 500,
+        "y": 160,
+        "wires": [
+            [
+                "8d3a21a4a6ded8e5"
+            ]
+        ]
+    },
+    {
+        "id": "1e41843fb792f0aa",
+        "type": "inject",
+        "z": "1812e87399238b2e",
+        "name": "low temp",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"time\":\"19:58\",\"datetime\":\"01/11/2024\",\"humidity\":55,\"temperature\":7.3}",
+        "payloadType": "json",
+        "x": 530,
+        "y": 225,
+        "wires": [
+            [
+                "8d3a21a4a6ded8e5"
+            ]
+        ]
+    },
+    {
+        "id": "291c14847cac35c0",
+        "type": "inject",
+        "z": "1812e87399238b2e",
+        "name": "low humi",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"time\":\"19:58\",\"datetime\":\"01/11/2024\",\"humidity\":32,\"temperature\":23.3}",
+        "payloadType": "json",
+        "x": 520,
+        "y": 280,
+        "wires": [
+            [
+                "b96fb24fd11f67c9"
+            ]
+        ]
+    },
+    {
+        "id": "c8d7fe6ddf7747f7",
+        "type": "inject",
+        "z": "1812e87399238b2e",
+        "name": "good humi",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"time\":\"19:58\",\"datetime\":\"01/11/2024\",\"humidity\":52,\"temperature\":23.3}",
+        "payloadType": "json",
+        "x": 524,
+        "y": 338,
+        "wires": [
+            [
+                "b96fb24fd11f67c9"
+            ]
+        ]
+    },
+    {
+        "id": "876bc3554e36e1c5",
+        "type": "inject",
+        "z": "1812e87399238b2e",
+        "name": "high humi",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"time\":\"19:58\",\"datetime\":\"01/11/2024\",\"humidity\":82,\"temperature\":23.3}",
+        "payloadType": "json",
+        "x": 480,
+        "y": 400,
+        "wires": [
+            [
+                "b96fb24fd11f67c9"
+            ]
+        ]
+    },
+    {
+        "id": "b96fb24fd11f67c9",
+        "type": "function",
+        "z": "1812e87399238b2e",
+        "name": "Trigger alarm humidity",
+        "func": "var payload = msg.payload\nvar alarm_flag_humi = context.get(\"alarm_flag_humi\");\n\nif(typeof alarm_flag_humi == \"undefined\")\nalarm_flag_humi = false;\n\nif(payload.humidity > 70 && !alarm_flag_humi)\n{\n\talarm_flag_humi = true;\n\tmsg.alarm = 1;\n\tcontext.set(\"alarm_flag_humi\", alarm_flag_humi);\n\tmsg.payload = \"Your plant is sweating. Please reduce the ambient humidity.\";\n\treturn msg;\n}\nif(payload.humidity < 40 && !alarm_flag_humi)\n{\n\talarm_flag_humi = true;\n\tmsg.alarm = 1;\n\tcontext.set(\"alarm_flag_humi\", alarm_flag_humi);\n\tmsg.payload = \"Your plant is drying out. Please increase the ambient humidity.\";\n\treturn msg;\n}\nif(payload.humidity <= 70 || payload.humidity >= 40 && alarm_flag_humi)\n{\n\talarm_flag_humi = false;\n\tmsg.alarm = 0;\n\tcontext.set(\"alarm_flag_humi\", alarm_flag_humi);\n\tmsg.payload = \"Your plant has the optimum ambient humidity. It thanks you.\";\n\treturn msg;\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 360,
+        "wires": [
+            [
+                "5fc5d3091bd37548",
+                "442c10fd9b93ae7f"
+            ]
+        ]
+    },
+    {
+        "id": "442c10fd9b93ae7f",
+        "type": "debug",
+        "z": "1812e87399238b2e",
+        "name": "debug alarm humidity",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1380,
+        "y": 380,
+        "wires": []
     },
     {
         "id": "3e7f7542507cf9a7",
@@ -94,5 +342,10 @@
         "willMsg": {},
         "userProps": "",
         "sessionExpiry": ""
+    },
+    {
+        "id": "565c87deab136220",
+        "type": "node-red-contrib-whatsapp-cmb-account",
+        "name": "Whatsapp API Account"
     }
 ]
